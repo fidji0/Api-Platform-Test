@@ -57,12 +57,12 @@ class Image
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column()]
-    #[Groups(['read:article' , 'read:collectionImage'])]
+    #[Groups(['read:article' ,'read:collection', 'read:collectionImage'])]
     private ?int $id = null;
 
     #[ORM\Column]
     #[Groups(['write:article', 'read:article' , 'read:collectionImage' ,'write:image'])]
-    private ?bool $avant = null;
+    private $avant = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Groups(['read:article', 'write:article', 'create:article', 'read:collectionImage' ,'write:image']), Length(min: 5)]
@@ -99,9 +99,12 @@ class Image
         return $this->avant;
     }
 
-    public function setAvant(bool $avant): self
+    public function setAvant( $avant): self
     {
-        $this->avant = $avant;
+        if ($avant !== 0) {
+            $this->avant = 1;
+        }
+        $this->avant = 0;
 
         return $this;
     }

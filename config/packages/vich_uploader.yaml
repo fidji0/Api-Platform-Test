@@ -13,3 +13,13 @@ vich_uploader:
             inject_on_load: false
             delete_on_update: true
             delete_on_remove: true
+        
+        images_avis:
+            uri_prefix: /images/avis
+            upload_destination: '%kernel.project_dir%/public/images/avis'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+

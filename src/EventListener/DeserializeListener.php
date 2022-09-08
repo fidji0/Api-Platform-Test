@@ -28,6 +28,7 @@ class DeserializeListener
         if ($request->getContentType() === 'form') {
             $this->denormalizeFromRequest($request);
         } else {
+            
             $this->decorated->onKernelRequest($event);
         }
     }
@@ -51,6 +52,7 @@ class DeserializeListener
             null,
             $context
         );
-        dd($object);
+        $request->attributes->set('data' , $object);
+        
     }
 }

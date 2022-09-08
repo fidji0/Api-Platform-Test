@@ -20,14 +20,14 @@ use Symfony\Component\Validator\Constraints\Valid;
 
         normalizationContext: ['groups' => ['read:collection']],
         denormalizationContext: ['groups' => ['write:article']],
-        paginationItemsPerPage: 2,
-        paginationMaximumItemsPerPage: 2,
+        paginationItemsPerPage: 10,
+        paginationMaximumItemsPerPage: 20,
         paginationClientItemsPerPage: true,
         collectionOperations: [
             'get',
             'post'
         ],
-        //denormalizationContext: ['groups' => ['write:article']],
+        
         itemOperations: [
             'put',
 
@@ -53,30 +53,30 @@ class Article
     #[ORM\Column(length: 100)]
     #[
         Groups(['read:collection', 'write:article']),
-        Length(min: 5, groups: ['create:article'])
+        Length(min: 5, groups: ['create:article', 'update:article'])
     ]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(['read:item', 'write:article'])]
+    #[Groups(['read:item', 'write:article' , 'read:collection', 'update:article'])]
     private ?string $description = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(['read:item', 'write:article'])]
+    #[Groups(['read:item', 'write:article' , 'read:collection', 'update:article'])]
     private ?string $city = null;
 
     #[ORM\Column]
-    #[Groups(['write:article', 'read:item', 'read:collection'])]
-    private ?int $zipCode = null;
+    #[Groups(['write:article' ,'read:item', 'read:collection' ,'update:article'])]
+    private ?string $zipCode = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read:collection', 'write:article'])]
+    #[Groups(['read:collection', ])]
     private ?string $slug = null;
 
-    #[ORM\OneToMany(mappedBy: 'article', targetEntity: Image::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'article', targetEntity: Image::class, cascade: ['persist', "remove"])]
     #[
         Groups(
-            ['read:collection', 'write:article']
+            ['read:collection']
         )
     ]
     private Collection $images;
@@ -89,7 +89,6 @@ class Article
     public function __construct()
     {
         $this->images = new ArrayCollection();
-        $this->zipCode = 12324;
     }
 
     public function getId(): ?int
@@ -105,7 +104,7 @@ class Article
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
+        $this->setSlug();
         return $this;
     }
 
@@ -133,13 +132,14 @@ class Article
         return $this;
     }
 
-    public function getZipCode(): ?int
+    public function getZipCode(): ?string
     {
         return $this->zipCode;
     }
 
-    public function setZipCode(int $zipCode): self
+    public function setZipCode(string $zipCode): self
     {
+       
         $this->zipCode = $zipCode;
 
         return $this;
@@ -150,8 +150,12 @@ class Article
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
+    public function setSlug(): self
     {
+        
+        $search = ["è" , "é" , "à" , " "];
+        $replace = [ "e" , "e" , "a" , "_"];
+        $slug = str_replace($search , $replace , trim($this->title)) ;
         $this->slug = $slug;
 
         return $this;

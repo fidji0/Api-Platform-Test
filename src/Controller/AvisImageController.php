@@ -2,12 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Image;
-use RuntimeException;
-use Symfony\Component\HttpFoundation\Request;
 
 
-class ArticleImageController 
+
+class AvisImageController 
 {
     public function __invoke($data)
     {

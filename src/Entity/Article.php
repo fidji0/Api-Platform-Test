@@ -20,8 +20,8 @@ use Symfony\Component\Validator\Constraints\Valid;
 
         normalizationContext: ['groups' => ['read:collection']],
         denormalizationContext: ['groups' => ['write:article']],
-        paginationItemsPerPage: 10,
-        paginationMaximumItemsPerPage: 20,
+        paginationItemsPerPage: 100,
+        paginationMaximumItemsPerPage: 200,
         paginationClientItemsPerPage: true,
         collectionOperations: [
             'get',

@@ -1,7 +1,7 @@
 <?php
 
 use App\Kernel;
-header('Access-Control-Allow-Origin: https://demo.api.av-developpeur.fr');
+header('Access-Control-Allow-Origin: http://demo.api.av-developpeur.fr');
 header("Access-Control-Allow-Headers: Authorization , X-AUTH-TOKEN , Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Allow: GET, POST, PUT, DELETE");

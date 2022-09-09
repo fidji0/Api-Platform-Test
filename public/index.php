@@ -1,7 +1,7 @@
 <?php
 
 use App\Kernel;
-header('Access-Control-Allow-Origin: ^https?://(localhost|127\.0\.0\.1|demo.api.cytp0194.odns.fr)(:[0-9]+)?$');
+header('Access-Control-Allow-Origin: https://demo.api.cytp0194.odns.fr');
 header("Access-Control-Allow-Headers: Authorization , X-AUTH-TOKEN , Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Allow: GET, POST, PUT, DELETE");

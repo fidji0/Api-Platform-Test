@@ -83,7 +83,7 @@ class Image
     private ?string $fileUrl;
 
     #[ORM\Column(length: 255, nullable: true)]
-    
+    #[Groups(['read:article', 'read:collectionImage' , 'read:collection'])    ]
     private ?string $filePath = null;
 
     #[ORM\Column(nullable: true)]
@@ -186,7 +186,7 @@ class Image
      */ 
     public function getFileUrl()
     {
-        return $this->fileUrl;
+        return "/images/images/".$this->getFilePath();
     }
 
     /**

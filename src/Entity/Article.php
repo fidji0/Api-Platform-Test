@@ -61,17 +61,6 @@ class Article
     #[Groups(['read:item', 'write:article' , 'read:collection', 'update:article'])]
     private ?string $description = null;
 
-    #[ORM\Column(length: 100)]
-    #[Groups(['read:item', 'write:article' , 'read:collection', 'update:article'])]
-    private ?string $city = null;
-
-    #[ORM\Column]
-    #[Groups(['write:article' ,'read:item', 'read:collection' ,'update:article'])]
-    private ?string $zipCode = null;
-
-    #[ORM\Column(length: 255)]
-    #[Groups(['read:collection', ])]
-    private ?string $slug = null;
 
     #[ORM\OneToMany(mappedBy: 'article', targetEntity: Image::class, cascade: ['persist', "remove"])]
     #[
@@ -80,6 +69,10 @@ class Article
         )
     ]
     private Collection $images;
+
+    #[ORM\Column(length: 50)]
+    #[Groups(['read:item', 'write:article' , 'read:collection', 'update:article'])]
+    private ?string $category = null;
 
     public static function validationGroups(self $article)
     {
@@ -104,7 +97,6 @@ class Article
     public function setTitle(string $title): self
     {
         $this->title = $title;
-        $this->setSlug();
         return $this;
     }
 
@@ -145,7 +137,7 @@ class Article
         return $this;
     }
 
-    public function getSlug(): ?string
+    /**public function getSlug(): ?string
     {
         return $this->slug;
     }
@@ -160,7 +152,7 @@ class Article
 
         return $this;
     }
-
+    */
     /**
      * @return Collection<int, Image>
      */
@@ -189,5 +181,21 @@ class Article
         }
 
         return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(string $category): self
+    {
+        if (in_array($category , ["sol" , "cuisine" , "amen" , "sdb"])) {
+            $this->category = $category;
+            return $this;
+        }
+        
+        return $this;
+        
     }
 }

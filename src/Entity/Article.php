@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -38,7 +39,8 @@ use Symfony\Component\Validator\Constraints\Valid;
         ]
 
     ),
-    ApiFilter(SearchFilter::class, properties: ['id' => 'exact', 'title' => 'partial'])
+    ApiFilter(OrderFilter::class, properties: ['id' => 'ASC']),    
+    ApiFilter(SearchFilter::class, properties: ['id' => 'exact', 'title' => 'partial' , 'category' => 'exact'])
 ]
 class Article
 {

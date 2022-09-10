@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -21,7 +20,9 @@ use Symfony\Component\Validator\Constraints\Valid;
 
         normalizationContext: ['groups' => ['read:collection']],
         denormalizationContext: ['groups' => ['write:article']],
-        
+        paginationItemsPerPage: 100,
+        paginationMaximumItemsPerPage: 200,
+        paginationClientItemsPerPage: true,
         collectionOperations: [
             'get',
             'post'
